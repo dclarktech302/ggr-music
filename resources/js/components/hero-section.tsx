@@ -64,6 +64,8 @@ export default function HeroSection() {
                                     ...transitionVariants,
                                 }}
                                 className="mt-12">
+
+                                <img className="rounded-(--radius)" src="/images/3d-music-related-scene.jpg" alt="GGR Music Group Logo" />
                                 {/* <form
                                     action=""
                                     className="mx-auto max-w-sm">

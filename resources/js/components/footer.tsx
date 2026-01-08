@@ -24,12 +24,12 @@ export default function FooterSection() {
     return (
         <footer className="py-16 md:py-32">
             <div className="mx-auto max-w-5xl px-6">
-                <Link
+                {/* <Link
                     href="/"
                     aria-label="go home"
                     className="mx-auto block size-fit">
                     <Logo />
-                </Link>
+                </Link> */}
 
                 <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
                     {links.map((link, index) => (
