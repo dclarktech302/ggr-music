@@ -31,7 +31,7 @@ export default function HeroSection() {
             <HeroHeader />
 
             <main className="overflow-hidden [--color-primary-foreground:var(--color-white)] [--color-primary:var(--color-green-600)]">
-                <section id="about">
+                <section>
                     <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-32 lg:pt-48">
                         <div className="relative z-10 mx-auto max-w-4xl text-center">
                             <TextEffect

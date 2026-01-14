@@ -6,7 +6,7 @@ export const Logo = ({ className, uniColor }: { className?: string; uniColor?: b
             viewBox="0 0 78 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={cn('h-[2rem] w-auto', className)}
+            className={cn('h-[2rem] w-auto rounded-full overflow-hidden', className)}
             style={{ '--logo-height': '1.5rem' } as React.CSSProperties}
         >
             <image
