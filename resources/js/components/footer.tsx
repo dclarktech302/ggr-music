@@ -10,10 +10,10 @@ const links = [
         title: 'About',
         href: '#about',
     },
-    {
-        title: 'Features',
-        href: '#features',
-    },
+    // {
+    //     title: 'Features',
+    //     href: '#features',
+    // },
     {
         title: 'Shows',
         href: '#shows',
