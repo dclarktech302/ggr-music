@@ -6,11 +6,6 @@ export default function SimpleLightbox() {
 
   const images = [
     { 
-      src: "/images/3d-music-related-scene.jpg", 
-      alt: "3D music visualization with colorful abstract shapes and musical elements",
-      caption: "3D Music Visualization - Abstract digital art with musical themes"
-    },
-    { 
       src: "/images/_hst3437-enhanced-nr.JPG", 
       alt: "Enhanced concert photography with vibrant stage lighting",
       caption: "Live Performance - Enhanced concert photography with dynamic lighting"
@@ -44,6 +39,16 @@ export default function SimpleLightbox() {
       src: "/images/IMG_4508.jpeg", 
       alt: "Live music event with stage production",
       caption: "Event Production - Complete stage setup for live music event"
+    },
+    { 
+      src: "/images/photo 095202374210.jpg", 
+      alt: "Live music event with stage production",
+    //   caption: "GGR Performance"
+    },
+    { 
+      src: "/images/photo 0915202381027.jpg", 
+      alt: "Live music event with stage production",
+    //   caption: "GGR Performance"
     },
   ];
 
