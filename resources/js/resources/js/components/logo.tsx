@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-export const Logo = ({ className, uniColor }: { className?: string; uniColor?: boolean }) => {
+export const Logo = ({ className }: { className?: string }) => {
     return (
         <svg
             viewBox="0 0 78 18"
@@ -16,8 +16,8 @@ export const Logo = ({ className, uniColor }: { className?: string; uniColor?: b
                 className="h-[var(--logo-height)] w-auto"
                 preserveAspectRatio="xMidYMid meet"
             />
-        </svg>    
-        )
+        </svg>
+    )
 }
 
 export const LogoIcon = ({ className, uniColor }: { className?: string; uniColor?: boolean }) => {
