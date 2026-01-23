@@ -8,37 +8,37 @@ export default function SimpleLightbox() {
     {
       src: "/images/_hst3437-enhanced-nr.JPG",
       alt: "Enhanced concert photography with vibrant stage lighting",
-      caption: "Live Performance - Enhanced concert photography with dynamic lighting"
+      // caption: "Live Performance - Enhanced concert photography with dynamic lighting"
     },
     {
       src: "/images/_hst5409-enhanced-nr.JPG",
       alt: "Live music performance with dynamic lighting effects",
-      caption: "Stage Lighting - Dynamic lighting effects during live performance"
+      // caption: "Stage Lighting - Dynamic lighting effects during live performance"
     },
     {
       src: "/images/0286CBA7-8496-4BA6-B2F7-ACC9691751B1.JPG",
       alt: "Music event crowd enjoying live performance",
-      caption: "Crowd Energy - Audience enjoying the live music experience"
+      // caption: "Crowd Energy - Audience enjoying the live music experience"
     },
     {
       src: "/images/IMG_4045.jpeg",
       alt: "Concert venue with stage setup and lighting rig",
-      caption: "Venue Setup - Stage production and lighting rig preparation"
+      // caption: "Venue Setup - Stage production and lighting rig preparation"
     },
     {
       src: "/images/IMG_4515.jpeg",
       alt: "Musician performing on stage with instruments",
-      caption: "Performance - Musician live on stage with instruments"
+      // caption: "Performance - Musician live on stage with instruments"
     },
     {
       src: "/images/IMG_4510.jpeg",
       alt: "Audience view from concert photography",
-      caption: "Audience Perspective - View from the crowd during performance"
+      // caption: "Audience Perspective - View from the crowd during performance"
     },
     {
       src: "/images/IMG_4508.jpeg",
       alt: "Live music event with stage production",
-      caption: "Event Production - Complete stage setup for live music event"
+      // caption: "Event Production - Complete stage setup for live music event"
     },
     {
       src: "/images/photo 095202374210.jpg",
