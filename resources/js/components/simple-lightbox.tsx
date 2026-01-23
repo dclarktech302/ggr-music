@@ -6,7 +6,7 @@ export default function SimpleLightbox() {
 
   const images = [
     {
-      src: "/images/_hst5409-enhanced-nr.JPG",
+      src: "/images/hst5409-enhanced-nr.JPG",
       alt: "Live music performance with dynamic lighting effects",
       // caption: "Stage Lighting - Dynamic lighting effects during live performance"
     },
@@ -31,7 +31,7 @@ export default function SimpleLightbox() {
       // caption: "Audience Perspective - View from the crowd during performance"
     },
     {
-      src: "/images/_hst3437-enhanced-nr.JPG",
+      src: "/images/hst3437-enhanced-nr.JPG",
       alt: "Enhanced concert photography with vibrant stage lighting",
       // caption: "Live Performance - Enhanced concert photography with dynamic lighting"
     },
@@ -41,12 +41,12 @@ export default function SimpleLightbox() {
       // caption: "Event Production - Complete stage setup for live music event"
     },
     {
-      src: "/images/photo 095202374210.jpg",
+      src: "/images/photo_095202374210.jpg",
       alt: "Live music event with stage production",
       //   caption: "GGR Performance"
     },
     {
-      src: "/images/photo 0915202381027.jpg",
+      src: "/images/photo_0915202381027.jpg",
       alt: "Live music event with stage production",
       //   caption: "GGR Performance"
     },

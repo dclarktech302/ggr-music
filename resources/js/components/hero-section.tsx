@@ -28,6 +28,7 @@ export default function HeroSection() {
     const [lightboxOpen, setLightboxOpen] = React.useState(false)
     const [currentImage, setCurrentImage] = React.useState('')
     const [currentSlide, setCurrentSlide] = React.useState(0)
+    const [isPaused, setIsPaused] = React.useState(false)
 
     const carouselImages = [
         {
@@ -60,18 +61,20 @@ export default function HeroSection() {
         setCurrentImage('')
     }
 
-    const nextSlide = () => {
+    const nextSlide = React.useCallback(() => {
         setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
-    }
+    }, [carouselImages.length])
 
-    const prevSlide = () => {
+    const prevSlide = React.useCallback(() => {
         setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
-    }
+    }, [carouselImages.length])
 
     React.useEffect(() => {
-        const interval = setInterval(nextSlide, 5000)
-        return () => clearInterval(interval)
-    }, [])
+        if (!isPaused) {
+            const interval = setInterval(nextSlide, 5000)
+            return () => clearInterval(interval)
+        }
+    }, [nextSlide, isPaused])
     return (
         <>
             <HeroHeader />
@@ -112,7 +115,11 @@ export default function HeroSection() {
                                 className="mt-12">
 
                                 {/* Carousel */}
-                                <div className="relative mx-auto max-w-full overflow-hidden rounded-(--radius)">
+                                <div
+                                    className="relative mx-auto max-w-full overflow-hidden rounded-(--radius)"
+                                    onMouseEnter={() => setIsPaused(true)}
+                                    onMouseLeave={() => setIsPaused(false)}
+                                >
                                     <div className="relative h-96 md:h-[500px]">
                                         {carouselImages.map((image, index) => (
                                             <div
@@ -125,6 +132,7 @@ export default function HeroSection() {
                                                     src={image.src}
                                                     alt={image.alt}
                                                     className="w-full h-full object-cover pointer-events-none"
+                                                    loading="lazy"
                                                 />
 
                                                 {/* Overlapping Text Overlay */}
