@@ -41,6 +41,14 @@ export default function Features() {
                     <h4 className="text-xl font-semibold">Get Featured</h4>
                     <p className="text-muted-foreground">Be highlighted in our promotions and reach new fans across the region</p>
                 </div>
+
+                <div className="col-span-full flex justify-center mt-10">
+                    <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSf0ZtRRUmyVLONC67GrvfDzdfnAPmwND6M9q8eT8xMWqxlvyA/viewform?embedded=true"
+                        width={640}
+                        height={400}
+                    >Loading…</iframe>
+                </div>
             </div>
         </section>
     )

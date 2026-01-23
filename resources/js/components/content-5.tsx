@@ -29,7 +29,7 @@ export default function ContentSection() {
                         loading="lazy"
                         onClick={() => openLightbox('/images/GhocaseV-8.JPG')}
                     />
-                    <p className="text-muted-foreground">Featured music showcase featuring local and regional artists</p>
+                    {/* <p className="text-muted-foreground">Featured music showcase featuring local and regional artists</p> */}
                 </div>
 
                 <div className="mx-auto max-w-xl space-y-4 text-center">
@@ -40,7 +40,7 @@ export default function ContentSection() {
                         loading="lazy"
                         onClick={() => openLightbox('/images/IMG_4498.jpeg')}
                     />
-                    <p className="text-muted-foreground">Community collaboration event with artist performances</p>
+                    {/* <p className="text-muted-foreground">Community collaboration event with artist performances</p> */}
                 </div>
 
                 <SimpleLightbox />
