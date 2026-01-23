@@ -27,6 +27,28 @@ const transitionVariants = {
 export default function HeroSection() {
     const [lightboxOpen, setLightboxOpen] = React.useState(false)
     const [currentImage, setCurrentImage] = React.useState('')
+    const [currentSlide, setCurrentSlide] = React.useState(0)
+
+    const carouselImages = [
+        {
+            src: "/images/3d-music-related-scene.jpg",
+            alt: "3D music visualization",
+            title: "Live Performances",
+            description: "Experience the energy of live music events"
+        },
+        {
+            src: "/images/3f56658e-7c79-42ae-bed1-38c3f6ff7b4c.jpg",
+            alt: "music festival",
+            title: "Artist Showcases",
+            description: "Discover talented local and regional artists"
+        },
+        {
+            src: "/images/back-view-audience-with-arms-raised-front-stage-music-concert.jpg",
+            alt: "music concert",
+            title: "Community Events",
+            description: "Join our growing music community"
+        }
+    ]
 
     const openLightbox = (imageSrc: string) => {
         setCurrentImage(imageSrc)
@@ -37,6 +59,19 @@ export default function HeroSection() {
         setLightboxOpen(false)
         setCurrentImage('')
     }
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
+    }
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
+    }
+
+    React.useEffect(() => {
+        const interval = setInterval(nextSlide, 5000)
+        return () => clearInterval(interval)
+    }, [])
     return (
         <>
             <HeroHeader />
@@ -76,40 +111,67 @@ export default function HeroSection() {
                                 }}
                                 className="mt-12">
 
-                                <div className="mx-auto max-w-100% relative">
-                                    <img
-                                        className="w-full object-cover object-center cursor-pointer hover:opacity-90 transition-opacity"
-                                        src="/images/3d-music-related-scene.jpg"
-                                        alt="new age music scene"
-                                        onClick={() => openLightbox('/images/3d-music-related-scene.jpg')}
-                                    />
-                                </div>
-                                {/* <form
-                                    action=""
-                                    className="mx-auto max-w-sm">
-                                    <div className="bg-background has-[input:focus]:ring-muted relative grid grid-cols-[1fr_auto] items-center rounded-[calc(var(--radius)+0.5rem)] border pr-2 shadow shadow-zinc-950/5 has-[input:focus]:ring-2">
-                                        <Mail className="pointer-events-none absolute inset-y-0 left-4 my-auto size-4" />
-
-                                        <input
-                                            placeholder="Your mail address"
-                                            className="h-12 w-full bg-transparent pl-12 focus:outline-none"
-                                            type="email"
-                                        />
-
-                                        <div className="md:pr-1.5 lg:pr-0">
-                                            <Button
-                                                aria-label="submit"
-                                                size="sm"
-                                                className="rounded-(--radius)">
-                                                <span className="hidden md:block">Get Started</span>
-                                                <SendHorizonal
-                                                    className="relative mx-auto size-5 md:hidden"
-                                                    strokeWidth={2}
+                                {/* Carousel */}
+                                <div className="relative mx-auto max-w-full overflow-hidden rounded-(--radius)">
+                                    <div className="relative h-96 md:h-[500px]">
+                                        {carouselImages.map((image, index) => (
+                                            <div
+                                                key={index}
+                                                className={`absolute inset-0 transition-opacity duration-1000 cursor-pointer ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                                                    }`}
+                                                onClick={() => openLightbox(image.src)}
+                                            >
+                                                <img
+                                                    src={image.src}
+                                                    alt={image.alt}
+                                                    className="w-full h-full object-cover pointer-events-none"
                                                 />
-                                            </Button>
-                                        </div>
+
+                                                {/* Overlapping Text Overlay */}
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
+                                                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                                                        <h3 className="text-3xl font-bold mb-2">{image.title}</h3>
+                                                        <p className="text-lg opacity-90">{image.description}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                </form> */}
+
+                                    {/* Carousel Controls */}
+                                    <button
+                                        onClick={prevSlide}
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors z-20"
+                                        aria-label="Previous slide"
+                                    >
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                        </svg>
+                                    </button>
+
+                                    <button
+                                        onClick={nextSlide}
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors z-20"
+                                        aria-label="Next slide"
+                                    >
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+
+                                    {/* Carousel Indicators */}
+                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                                        {carouselImages.map((_, index) => (
+                                            <button
+                                                key={index}
+                                                onClick={() => setCurrentSlide(index)}
+                                                className={`w-2 h-2 rounded-full transition-colors ${index === currentSlide ? 'bg-white' : 'bg-white/50'
+                                                    }`}
+                                                aria-label={`Go to slide ${index + 1}`}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
 
                             </AnimatedGroup>
                         </div>
