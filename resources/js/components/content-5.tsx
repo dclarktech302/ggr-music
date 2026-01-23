@@ -22,27 +22,25 @@ export default function ContentSection() {
                 </div>
 
                 <div className="mx-auto max-w-xl space-y-4 text-center">
-                    <h3 className="text-2xl font-semibold">Gho Case V</h3>
-                    <p className="text-muted-foreground">Electronic music showcase featuring local and regional artists</p>
-                    <img 
-                        className="rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity" 
-                        src="/images/GhocaseV-8.JPG" 
-                        alt="Gho Case V event photography" 
+                    <img
+                        className="rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity"
+                        src="/images/GhocaseV-8.JPG"
+                        alt="Gho Case V event photography"
                         loading="lazy"
                         onClick={() => openLightbox('/images/GhocaseV-8.JPG')}
                     />
+                    <p className="text-muted-foreground">Featured music showcase featuring local and regional artists</p>
                 </div>
 
                 <div className="mx-auto max-w-xl space-y-4 text-center">
-                    <h3 className="text-2xl font-semibold">GGR & Friends Part 2</h3>
-                    <p className="text-muted-foreground">Community collaboration event with featured performances</p>
-                    <img 
-                        className="rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity" 
-                        src="/images/IMG_4498.jpeg" 
-                        alt="GGR & Friends Part 2 event photography" 
+                    <img
+                        className="rounded-(--radius) cursor-pointer hover:opacity-90 transition-opacity"
+                        src="/images/IMG_4498.jpeg"
+                        alt="GGR & Friends Part 2 event photography"
                         loading="lazy"
                         onClick={() => openLightbox('/images/IMG_4498.jpeg')}
                     />
+                    <p className="text-muted-foreground">Community collaboration event with artist performances</p>
                 </div>
 
                 <SimpleLightbox />
@@ -60,7 +58,7 @@ export default function ContentSection() {
                                 className="max-w-full max-h-full object-contain"
                                 onClick={(e) => e.stopPropagation()}
                             />
-                            
+
                             <button
                                 className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 transition-all duration-200 hover:bg-opacity-70 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                                 onClick={closeLightbox}
