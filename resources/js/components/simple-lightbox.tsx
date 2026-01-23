@@ -5,50 +5,50 @@ export default function SimpleLightbox() {
   const [currentImage, setCurrentImage] = React.useState(0);
 
   const images = [
-    { 
-      src: "/images/_hst3437-enhanced-nr.JPG", 
+    {
+      src: "/images/_hst3437-enhanced-nr.JPG",
       alt: "Enhanced concert photography with vibrant stage lighting",
       caption: "Live Performance - Enhanced concert photography with dynamic lighting"
     },
-    { 
-      src: "/images/_hst5409-enhanced-nr.JPG", 
+    {
+      src: "/images/_hst5409-enhanced-nr.JPG",
       alt: "Live music performance with dynamic lighting effects",
       caption: "Stage Lighting - Dynamic lighting effects during live performance"
     },
-    { 
-      src: "/images/0286CBA7-8496-4BA6-B2F7-ACC9691751B1.JPG", 
+    {
+      src: "/images/0286CBA7-8496-4BA6-B2F7-ACC9691751B1.JPG",
       alt: "Music event crowd enjoying live performance",
       caption: "Crowd Energy - Audience enjoying the live music experience"
     },
-    { 
-      src: "/images/IMG_4045.jpeg", 
+    {
+      src: "/images/IMG_4045.jpeg",
       alt: "Concert venue with stage setup and lighting rig",
       caption: "Venue Setup - Stage production and lighting rig preparation"
     },
-    { 
-      src: "/images/IMG_4515.jpeg", 
+    {
+      src: "/images/IMG_4515.jpeg",
       alt: "Musician performing on stage with instruments",
       caption: "Performance - Musician live on stage with instruments"
     },
-    { 
-      src: "/images/IMG_4510.jpeg", 
+    {
+      src: "/images/IMG_4510.jpeg",
       alt: "Audience view from concert photography",
       caption: "Audience Perspective - View from the crowd during performance"
     },
-    { 
-      src: "/images/IMG_4508.jpeg", 
+    {
+      src: "/images/IMG_4508.jpeg",
       alt: "Live music event with stage production",
       caption: "Event Production - Complete stage setup for live music event"
     },
-    { 
-      src: "/images/photo 095202374210.jpg", 
+    {
+      src: "/images/photo 095202374210.jpg",
       alt: "Live music event with stage production",
-    //   caption: "GGR Performance"
+      //   caption: "GGR Performance"
     },
-    { 
-      src: "/images/photo 0915202381027.jpg", 
+    {
+      src: "/images/photo 0915202381027.jpg",
       alt: "Live music event with stage production",
-    //   caption: "GGR Performance"
+      //   caption: "GGR Performance"
     },
   ];
 
@@ -57,13 +57,13 @@ export default function SimpleLightbox() {
     setOpen(true);
   };
 
-  const nextImage = () => {
+  const nextImage = React.useCallback(() => {
     setCurrentImage((prev) => (prev + 1) % images.length);
-  };
+  }, [images.length]);
 
-  const prevImage = () => {
+  const prevImage = React.useCallback(() => {
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
-  };
+  }, [images.length]);
 
   const closeLightbox = () => {
     setOpen(false);
@@ -89,7 +89,7 @@ export default function SimpleLightbox() {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [open]);
+  }, [open, nextImage, prevImage]);
 
   return (
     <>
@@ -117,12 +117,12 @@ export default function SimpleLightbox() {
               className="max-w-full max-h-full object-contain"
               onClick={(e) => e.stopPropagation()}
             />
-            
+
             {/* Caption */}
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4 text-center">
               <p className="text-sm md:text-base">{images[currentImage].caption}</p>
             </div>
-            
+
             <button
               className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2"
               onClick={closeLightbox}

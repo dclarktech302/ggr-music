@@ -1,7 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { Logo } from '@/resources/js/components/logo'
 import { Menu, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import React from 'react'
 import { cn } from '@/lib/utils'
 

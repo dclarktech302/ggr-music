@@ -1,4 +1,3 @@
-import { Logo } from '@/resources/js/components/logo'
 import { Link } from '@inertiajs/react';
 
 const links = [

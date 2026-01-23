@@ -1,5 +1,3 @@
-import { ReactNode } from 'react'
-
 export default function Features() {
     return (
         <section id="about" className="py-16 md:py-32">
@@ -7,7 +5,7 @@ export default function Features() {
                 <div className="text-center space-y-4">
                     <h2 className="text-balance text-4xl font-semibold lg:text-5xl">Join Our Community</h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        We are the central hub for music artists, producers, and DJs who are passionate about their craft. 
+                        We are the central hub for music artists, producers, and DJs who are passionate about their craft.
                         Serving Maryland and Delaware with opportunities to showcase your talent.
                     </p>
                 </div>
@@ -48,13 +46,3 @@ export default function Features() {
     )
 }
 
-const CardDecorator = ({ children }: { children: ReactNode }) => (
-    <div className="mask-radial-from-40% mask-radial-to-60% relative mx-auto size-36 duration-200 [--color-border:color-mix(in_oklab,var(--color-zinc-950)10%,transparent)] group-hover:[--color-border:color-mix(in_oklab,var(--color-zinc-950)20%,transparent)] dark:[--color-border:color-mix(in_oklab,var(--color-white)15%,transparent)] dark:group-hover:[--color-border:color-mix(in_oklab,var(--color-white)20%,transparent)]">
-        <div
-            aria-hidden
-            className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-[size:24px_24px] dark:opacity-50"
-        />
-
-        <div className="bg-background absolute inset-0 m-auto flex size-12 items-center justify-center border-l border-t">{children}</div>
-    </div>
-)
