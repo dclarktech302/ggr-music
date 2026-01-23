@@ -4,6 +4,8 @@ import { TextEffect } from '@/components/ui/text-effect'
 import { AnimatedGroup } from '@/components/ui/animated-group'
 import { HeroHeader } from '@/components/header'
 import { LogoCloud } from '@/components/logo-cloud'
+import * as React from 'react'
+
 
 const transitionVariants = {
     item: {
@@ -26,6 +28,18 @@ const transitionVariants = {
 }
 
 export default function HeroSection() {
+    const [lightboxOpen, setLightboxOpen] = React.useState(false)
+    const [currentImage, setCurrentImage] = React.useState('')
+
+    const openLightbox = (imageSrc: string) => {
+        setCurrentImage(imageSrc)
+        setLightboxOpen(true)
+    }
+
+    const closeLightbox = () => {
+        setLightboxOpen(false)
+        setCurrentImage('')
+    }
     return (
         <>
             <HeroHeader />
@@ -65,7 +79,14 @@ export default function HeroSection() {
                                 }}
                                 className="mt-12">
 
-                                <img className="rounded-(--radius)" src="/images/3d-music-related-scene.jpg" alt="GGR Music Group Logo" />
+                                <div className="mx-auto max-w-100% relative">
+                                    <img
+                                        className="w-full object-cover object-center cursor-pointer hover:opacity-90 transition-opacity"
+                                        src="/images/3d-music-related-scene.jpg"
+                                        alt="new age music scene"
+                                        onClick={() => openLightbox('/images/3d-music-related-scene.jpg')}
+                                    />
+                                </div>
                                 {/* <form
                                     action=""
                                     className="mx-auto max-w-sm">
@@ -95,6 +116,31 @@ export default function HeroSection() {
 
                             </AnimatedGroup>
                         </div>
+                        {lightboxOpen && (
+                            <div
+                                className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+                                onClick={closeLightbox}
+                            >
+                                <div className="relative max-w-4xl max-h-full p-4">
+                                    <img
+                                        src={currentImage}
+                                        alt="New age music scene"
+                                        className="max-w-full max-h-full object-contain"
+                                        onClick={(e) => e.stopPropagation()}
+                                    />
+
+                                    <button
+                                        className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 transition-all duration-200 hover:bg-opacity-70 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                                        onClick={closeLightbox}
+                                        aria-label="Close lightbox"
+                                    >
+                                        <svg className="w-6 h-6 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </section>
                 {/*
