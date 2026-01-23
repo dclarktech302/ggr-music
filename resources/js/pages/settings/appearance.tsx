@@ -1,6 +1,5 @@
 import { Head } from '@inertiajs/react';
 
-import AppearanceTabs from '@/components/appearance-tabs';
 import HeadingSmall from '@/components/heading-small';
 import { type BreadcrumbItem } from '@/types';
 
@@ -24,9 +23,17 @@ export default function Appearance() {
                 <div className="space-y-6">
                     <HeadingSmall
                         title="Appearance settings"
-                        description="Update your account's appearance settings"
+                        description="Dark mode is always enabled"
                     />
-                    <AppearanceTabs />
+                    <div className="rounded-lg border p-4">
+                        <div className="flex items-center gap-3">
+                            <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                            <p className="text-sm font-medium">Dark mode is permanently enabled</p>
+                        </div>
+                        <p className="mt-2 text-sm text-muted-foreground">
+                            The application is configured to always use dark mode for the best viewing experience.
+                        </p>
+                    </div>
                 </div>
             </SettingsLayout>
         </AppLayout>
