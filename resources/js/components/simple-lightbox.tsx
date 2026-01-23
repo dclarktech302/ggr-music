@@ -6,11 +6,6 @@ export default function SimpleLightbox() {
 
   const images = [
     {
-      src: "/images/_hst3437-enhanced-nr.JPG",
-      alt: "Enhanced concert photography with vibrant stage lighting",
-      // caption: "Live Performance - Enhanced concert photography with dynamic lighting"
-    },
-    {
       src: "/images/_hst5409-enhanced-nr.JPG",
       alt: "Live music performance with dynamic lighting effects",
       // caption: "Stage Lighting - Dynamic lighting effects during live performance"
@@ -34,6 +29,11 @@ export default function SimpleLightbox() {
       src: "/images/IMG_4510.jpeg",
       alt: "Audience view from concert photography",
       // caption: "Audience Perspective - View from the crowd during performance"
+    },
+    {
+      src: "/images/_hst3437-enhanced-nr.JPG",
+      alt: "Enhanced concert photography with vibrant stage lighting",
+      // caption: "Live Performance - Enhanced concert photography with dynamic lighting"
     },
     {
       src: "/images/IMG_4508.jpeg",
