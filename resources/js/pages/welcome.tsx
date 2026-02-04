@@ -3,6 +3,7 @@ import Features from '@/components/features-2';
 import FooterSection from '@/components/footer';
 import { Head } from '@inertiajs/react';
 import ContentSection from '@/components/content-5';
+import Form from '@/components/form';
 
 export default function Welcome() {
     return (
@@ -15,6 +16,7 @@ export default function Welcome() {
                 />
             </Head>
             < HeroSection />
+            < Form />
             < Features />
             < ContentSection />
             < FooterSection />
