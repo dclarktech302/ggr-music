@@ -77,6 +77,7 @@ export default function HeroSection() {
     }, [nextSlide, isPaused])
     return (
         <>
+            <link rel="preload" href="/images/3d-music-related-scene.jpg" as="image" />
             <HeroHeader />
 
             <main className="overflow-hidden [--color-primary-foreground:var(--color-white)] [--color-primary:var(--color-green-600)]">
@@ -124,7 +125,7 @@ export default function HeroSection() {
                                         {carouselImages.map((image, index) => (
                                             <div
                                                 key={index}
-                                                className={`absolute inset-0 transition-opacity duration-1000 cursor-pointer ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                                                className={`absolute inset-0 transition-opacity duration-300 cursor-pointer ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
                                                     }`}
                                                 onClick={() => openLightbox(image.src)}
                                             >
@@ -132,7 +133,10 @@ export default function HeroSection() {
                                                     src={image.src}
                                                     alt={image.alt}
                                                     className="w-full h-full object-cover pointer-events-none"
-                                                    loading="lazy"
+                                                    loading={index === 0 ? "eager" : "lazy"}
+                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+                                                    width="1920"
+                                                    height="1080"
                                                 />
 
                                                 {/* Overlapping Text Overlay */}
@@ -194,6 +198,8 @@ export default function HeroSection() {
                                         alt="New age music scene"
                                         className="max-w-full max-h-full object-contain"
                                         onClick={(e) => e.stopPropagation()}
+                                        width="1920"
+                                        height="1080"
                                     />
 
                                     <button

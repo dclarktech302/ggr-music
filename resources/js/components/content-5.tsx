@@ -27,6 +27,8 @@ export default function ContentSection() {
                         src="/images/GhocaseV-8.JPG"
                         alt="Gho Case V event photography"
                         loading="lazy"
+                        width="1920"
+                        height="1080"
                         onClick={() => openLightbox('/images/GhocaseV-8.JPG')}
                     />
                     {/* <p className="text-muted-foreground">Featured music showcase featuring local and regional artists</p> */}
@@ -38,12 +40,16 @@ export default function ContentSection() {
                         src="/images/IMG_4498.jpeg"
                         alt="GGR & Friends Part 2 event photography"
                         loading="lazy"
+                        width="1920"
+                        height="1080"
                         onClick={() => openLightbox('/images/IMG_4498.jpeg')}
                     />
                     {/* <p className="text-muted-foreground">Community collaboration event with artist performances</p> */}
                 </div>
 
-                <SimpleLightbox />
+                <div className="mt-12">
+                    <SimpleLightbox />
+                </div>
 
                 {/* Individual Image Lightbox */}
                 {lightboxOpen && (
@@ -57,6 +63,8 @@ export default function ContentSection() {
                                 alt="Event photography"
                                 className="max-w-full max-h-full object-contain"
                                 onClick={(e) => e.stopPropagation()}
+                                width="1920"
+                                height="1080"
                             />
 
                             <button

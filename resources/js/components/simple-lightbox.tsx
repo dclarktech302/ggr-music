@@ -100,6 +100,7 @@ export default function SimpleLightbox() {
             src={image.src}
             alt={image.alt}
             className="cursor-pointer rounded-lg object-cover w-full h-32"
+            loading="lazy"
             onClick={() => openLightbox(index)}
           />
         ))}
