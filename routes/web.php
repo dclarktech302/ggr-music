@@ -8,6 +8,10 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::get('/subscribe', function () {
+    return Inertia::render('subscribe');
+})->name('subscribe.page');
+
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
 
 // Route::middleware(['auth', 'verified'])->group(function () {

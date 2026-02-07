@@ -1,11 +1,12 @@
 import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function Subscribe({ flash }: { flash?: { success?: string; error?: string } }) {
+export default function Subscribe({ flash, initialEmail }: { flash?: { success?: string; error?: string }, initialEmail?: string }) {
     const [showSuccess, setShowSuccess] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
-        email: '',
+        email: initialEmail || '',
         phone: '',
         communication_frequency: '',
         discovery_source: '',
@@ -45,12 +46,18 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
             preserveScroll: true,
             onSuccess: () => {
                 setShowSuccess(true);
+                setIsSubmitted(true);
                 reset();
 
                 // Hide success message after 5 seconds
                 setTimeout(() => {
                     setShowSuccess(false);
                 }, 5000);
+
+                // Show success popup
+                setTimeout(() => {
+                    alert('Thank you for subscribing! You will receive updates based on your preferences.');
+                }, 1000);
             },
             onError: () => {
                 setShowSuccess(false);
@@ -61,68 +68,70 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
     return (
         <div className="min-h-screen bg-black py-12">
             <div className="container mx-auto px-4">
-                <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
-                    <h1 className="text-3xl font-bold mb-2 text-gray-700">Subscribe to GGR</h1>
-                    <p className="text-gray-600 mb-6">
-                        Sign up to receive exclusive alerts and help us shape what comes next!
-                    </p>
-                    <p className="text-sm text-gray-500 mb-6">* Indicates required question</p>
+                <div className="max-w-3xl mx-auto p-8 bg-gray-900/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-800">
+                    <div className="text-center mb-8">
+                        <h1 className="text-4xl font-bold mb-3 text-white">Subscribe to GGR</h1>
+                        <p className="text-gray-300 text-lg">
+                            Sign up to receive exclusive alerts and help us shape what comes next!
+                        </p>
+                        <p className="text-sm text-gray-400 mt-2">* Indicates required question</p>
+                    </div>
 
                     {/* Success Message */}
                     {(showSuccess || flash?.success) && (
-                        <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                        <div className="mb-6 p-4 bg-green-900/50 border border-green-700 text-green-300 rounded-lg">
                             {flash?.success || 'Thank you for subscribing! You will receive updates based on your preferences.'}
                         </div>
                     )}
 
                     {/* Error Message */}
                     {flash?.error && (
-                        <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                        <div className="mb-6 p-4 bg-red-900/50 border border-red-700 text-red-300 rounded-lg">
                             {flash.error}
                         </div>
                     )}
 
-                    <form onSubmit={submit} className="space-y-6">
+                    <form onSubmit={submit} className={`space-y-6 ${isSubmitted ? 'opacity-50 pointer-events-none' : ''}`}>
                         {/* Email */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Email <span className="text-red-500">*</span>
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                Email <span className="text-red-400">*</span>
                             </label>
                             <input
                                 type="email"
                                 name="email"
                                 value={data.email}
                                 onChange={handleChange}
-                                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.email ? 'border-red-500' : 'border-gray-300'
+                                className={`w-full px-4 py-3 text-base font-medium text-white border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${errors.email ? 'border-red-500 bg-red-900/30' : 'border-gray-700 bg-gray-800 hover:border-gray-600'
                                     }`}
-                                placeholder="your.email@example.com"
+                                placeholder="email@example.com"
                             />
-                            {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+                            {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email}</p>}
                         </div>
 
                         {/* Phone */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Mobile Phone Number for Text Alerts <span className="text-red-500">*</span>
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                Mobile Phone Number for Text Alerts <span className="text-red-400">*</span>
                             </label>
                             <input
                                 type="tel"
                                 name="phone"
                                 value={data.phone}
                                 onChange={handleChange}
-                                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.phone ? 'border-red-500' : 'border-gray-300'
+                                className={`w-full px-4 py-3 text-base font-medium text-white border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${errors.phone ? 'border-red-500 bg-red-900/30' : 'border-gray-700 bg-gray-800 hover:border-gray-600'
                                     }`}
                                 placeholder="(555) 123-4567"
                             />
-                            {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
+                            {errors.phone && <p className="mt-1 text-sm text-red-400">{errors.phone}</p>}
                         </div>
 
                         {/* Communication Frequency */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Preferred Communication Frequency for Text Alerts <span className="text-red-500">*</span>
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                Preferred Communication Frequency for Text Alerts <span className="text-red-400">*</span>
                             </label>
-                            <div className="space-y-2 text-gray-500">
+                            <div className="space-y-2 text-gray-400">
                                 <label className="flex items-start">
                                     <input
                                         type="radio"
@@ -158,16 +167,16 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
                                 </label>
                             </div>
                             {errors.communication_frequency && (
-                                <p className="mt-1 text-sm text-red-500">{errors.communication_frequency}</p>
+                                <p className="mt-1 text-sm text-red-400">{errors.communication_frequency}</p>
                             )}
                         </div>
 
                         {/* Discovery Source */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Where did you FIRST discover GGR Music Group? <span className="text-red-500">*</span>
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                Where did you FIRST discover GGR Music Group? <span className="text-red-400">*</span>
                             </label>
-                            <div className="space-y-2 text-gray-500">
+                            <div className="space-y-2 text-gray-400">
                                 {['Instagram', 'YouTube', 'Live event / performance', 'Friend or word of mouth', 'Search (Google, etc.)'].map(option => (
                                     <label key={option} className="flex items-center">
                                         <input
@@ -198,22 +207,22 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
                                         name="discovery_source_other"
                                         value={data.discovery_source_other}
                                         onChange={handleChange}
-                                        className="ml-8 w-full px-4 py-2 border border-gray-300 rounded-lg"
+                                        className="ml-8 w-full px-4 py-3 text-base font-medium text-white border-2 border-gray-700 rounded-xl bg-gray-800 hover:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                         placeholder="Please specify"
                                     />
                                 )}
                             </div>
                             {errors.discovery_source && (
-                                <p className="mt-1 text-sm text-red-500">{errors.discovery_source}</p>
+                                <p className="mt-1 text-sm text-red-400">{errors.discovery_source}</p>
                             )}
                         </div>
 
                         {/* Preferred Platform */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Where would you MOST like to see more GGR content in the future? <span className="text-red-500">*</span>
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                Where would you MOST like to see more GGR content in the future? <span className="text-red-400">*</span>
                             </label>
-                            <div className="space-y-2 text-gray-500">
+                            <div className="space-y-2 text-gray-400">
                                 {['Instagram', 'TikTok', 'YouTube', 'Facebook', 'X (Formally Twitter)', 'Short-form video (Reels / TikTok / Shorts)', 'Long-form video (YouTube)', 'Live Streams'].map(option => (
                                     <label key={option} className="flex items-center">
                                         <input
@@ -235,11 +244,11 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
 
                         {/* Satisfaction Rating */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 How satisfied are you with the content we currently share on social media? <span className="text-red-500">*</span>
                             </label>
-                            <p className="text-sm text-gray-500 mb-3">1 = Very Dissatisfied · 3 = Neutral · 5 = Very Satisfied</p>
-                            <div className="flex items-center space-x-2 text-gray-500">
+                            <p className="text-sm text-gray-400 mb-3">1 = Very Dissatisfied · 3 = Neutral · 5 = Very Satisfied</p>
+                            <div className="flex items-center space-x-2 text-gray-400">
                                 <span className="text-sm">Very Dissatisfied</span>
                                 {[1, 2, 3, 4, 5].map(rating => (
                                     <label key={rating} className="flex flex-col items-center">
@@ -263,10 +272,10 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
 
                         {/* Content Preferences */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 What kind of content would you like to see more of on our social media channels? <span className="text-red-500">*</span>
                             </label>
-                            <div className="space-y-2 text-gray-500">
+                            <div className="space-y-2 text-gray-400">
                                 {[
                                     'Behind-the-scenes footage',
                                     'Exclusive interviews with talent',
@@ -304,7 +313,7 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
                                         name="content_preferences_other"
                                         value={data.content_preferences_other}
                                         onChange={handleChange}
-                                        className="ml-8 w-full px-4 py-2 border border-gray-300 rounded-lg"
+                                        className="ml-8 w-full px-4 py-3 text-base font-medium text-gray-900 border-2 border-gray-300 rounded-xl bg-white hover:border-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                                         placeholder="Please specify"
                                     />
                                 )}
@@ -316,10 +325,10 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
 
                         {/* Would Share */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 Would you share GGR content with friends if it appeared on your preferred platform? <span className="text-red-500">*</span>
                             </label>
-                            <div className="space-y-2 text-gray-500">
+                            <div className="space-y-2 text-gray-400">
                                 {['Yes', 'Maybe', 'No'].map(option => (
                                     <label key={option} className="flex items-center">
                                         <input
@@ -377,19 +386,15 @@ export default function Subscribe({ flash }: { flash?: { success?: string; error
                         <div>
                             <button
                                 type="submit"
-                                disabled={processing}
-                                className={`w-full py-3 px-6 rounded-lg font-medium text-white transition-colors ${processing
-                                    ? 'bg-gray-400 cursor-not-allowed'
-                                    : 'bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300'
+                                disabled={processing || isSubmitted}
+                                className={`w-full py-4 px-6 rounded-xl font-semibold text-lg text-white transition-all duration-300 transform ${processing || isSubmitted
+                                    ? 'bg-gray-600 cursor-not-allowed'
+                                    : 'bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 hover:scale-[1.02] active:scale-[0.98]'
                                     }`}
                             >
-                                {processing ? 'Submitting...' : 'Submit'}
+                                {processing ? 'Submitting...' : isSubmitted ? 'Subscribed!' : 'Subscribe Now'}
                             </button>
                         </div>
-
-                        <p className="text-xs text-gray-500 text-center">
-                            Never submit passwords through this form.
-                        </p>
                     </form>
                 </div>
             </div>

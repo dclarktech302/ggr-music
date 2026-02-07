@@ -1,6 +1,8 @@
 import { TextEffect } from '@/components/ui/text-effect'
 import { AnimatedGroup } from '@/components/ui/animated-group'
 import { HeroHeader } from '@/components/header'
+import { Button } from '@/components/ui/button'
+import { Mail, SendHorizonal } from 'lucide-react'
 import * as React from 'react'
 
 
@@ -29,6 +31,8 @@ export default function HeroSection() {
     const [currentImage, setCurrentImage] = React.useState('')
     const [currentSlide, setCurrentSlide] = React.useState(0)
     const [isPaused, setIsPaused] = React.useState(false)
+    const [email, setEmail] = React.useState('')
+    const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
 
     const carouselImages = [
         {
@@ -51,6 +55,20 @@ export default function HeroSection() {
         }
     ]
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+        if (email && emailRegex.test(email)) {
+            // Redirect to subscribe page with email pre-filled
+            window.location.href = `/subscribe?email=${encodeURIComponent(email)}`
+        } else {
+            // Show error message for invalid email
+            alert('Please enter a valid email address')
+        }
+    }
+
     const openLightbox = (imageSrc: string) => {
         setCurrentImage(imageSrc)
         setLightboxOpen(true)
@@ -61,33 +79,78 @@ export default function HeroSection() {
         setCurrentImage('')
     }
 
+    const resetTimer = React.useCallback(() => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current)
+        }
+        if (!isPaused) {
+            intervalRef.current = setInterval(() => {
+                setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
+            }, 5000)
+        }
+    }, [isPaused, carouselImages.length])
+
     const nextSlide = React.useCallback(() => {
         setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
-    }, [carouselImages.length])
+        resetTimer()
+    }, [carouselImages.length, resetTimer])
 
     const prevSlide = React.useCallback(() => {
         setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
-    }, [carouselImages.length])
+        resetTimer()
+    }, [carouselImages.length, resetTimer])
+
+    const goToSlide = React.useCallback((index: number) => {
+        setCurrentSlide(index)
+        resetTimer()
+    }, [resetTimer])
 
     React.useEffect(() => {
         if (!isPaused) {
-            const interval = setInterval(nextSlide, 5000)
-            return () => clearInterval(interval)
+            intervalRef.current = setInterval(() => {
+                setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
+            }, 5000)
         }
-    }, [nextSlide, isPaused])
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current)
+            }
+        }
+    }, [isPaused, carouselImages.length])
     return (
         <>
             <HeroHeader />
 
             <main className="overflow-hidden [--color-primary-foreground:var(--color-white)] [--color-primary:var(--color-green-600)]">
-                <section>
-                    <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-32 lg:pt-48">
-                        <div className="relative z-10 mx-auto max-w-4xl text-center">
+                <section className="relative min-h-screen">
+                    {/* Background Carousel */}
+                    <div className="absolute inset-0">
+                        {carouselImages.map((image, index) => (
+                            <div
+                                key={index}
+                                className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                                    }`}
+                            >
+                                <img
+                                    src={image.src}
+                                    alt={image.alt}
+                                    className="w-full h-full object-cover"
+                                    loading="lazy"
+                                />
+                                {/* Dark overlay for text readability */}
+                                <div className="absolute inset-0 bg-black/50" />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Content Overlay */}
+                    <div className="relative z-10 mx-auto max-w-6xl px-6 pb-32 pt-48 lg:pt-64">
+                        <div className="mx-auto max-w-4xl text-center space-y-8">
                             <TextEffect
                                 preset="fade-in-blur"
                                 speedSegment={0.3}
                                 as="h1"
-                                className="text-balance text-5xl font-medium md:text-6xl">
+                                className="text-balance text-5xl font-medium md:text-6xl text-white">
                                 GGR Music Group
                             </TextEffect>
                             <TextEffect
@@ -96,7 +159,7 @@ export default function HeroSection() {
                                 speedSegment={0.3}
                                 delay={0.5}
                                 as="p"
-                                className="mx-auto mt-6 max-w-2xl text-pretty text-lg">
+                                className="mx-auto max-w-2xl text-pretty text-lg text-gray-200">
                                 Welcome to the next generation of entertainment on the Eastern Shore
                             </TextEffect>
 
@@ -114,107 +177,109 @@ export default function HeroSection() {
                                 }}
                                 className="mt-12">
 
-                                {/* Carousel */}
-                                <div
-                                    className="relative mx-auto max-w-full overflow-hidden rounded-(--radius)"
-                                    onMouseEnter={() => setIsPaused(true)}
-                                    onMouseLeave={() => setIsPaused(false)}
-                                >
-                                    <div className="relative h-96 md:h-[500px]">
-                                        {carouselImages.map((image, index) => (
-                                            <div
-                                                key={index}
-                                                className={`absolute inset-0 transition-opacity duration-1000 cursor-pointer ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                                                    }`}
-                                                onClick={() => openLightbox(image.src)}
-                                            >
-                                                <img
-                                                    src={image.src}
-                                                    alt={image.alt}
-                                                    className="w-full h-full object-cover pointer-events-none"
-                                                    loading="lazy"
+                                {/* Email CTA Form */}
+                                <form
+                                    onSubmit={handleSubmit}
+                                    className="mx-auto max-w-sm">
+                                    <div className="bg-background/90 backdrop-blur-sm has-[input:focus]:ring-muted relative grid grid-cols-[1fr_auto] items-center rounded-[calc(var(--radius)+0.5rem)] border pr-2 shadow shadow-zinc-950/5 has-[input:focus]:ring-2">
+                                        <Mail className="pointer-events-none absolute inset-y-0 left-4 my-auto size-4" />
+
+                                        <input
+                                            placeholder="Your mail address"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="h-12 w-full bg-transparent pl-12 pr-4 text-white focus:outline-none placeholder:text-gray-300"
+                                            type="email"
+                                            required
+                                        />
+
+                                        <div className="md:pr-1.5 lg:pr-0">
+                                            <Button
+                                                type="submit"
+                                                aria-label="submit"
+                                                size="sm"
+                                                className="rounded-(--radius) bg-silver-600 hover:bg-silver-700 text-white">
+                                                <span className="hidden md:block text-white">Get Started</span>
+                                                <SendHorizonal
+                                                    className="relative mx-auto size-5 md:hidden text-white"
+                                                    strokeWidth={2}
                                                 />
-
-                                                {/* Overlapping Text Overlay */}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
-                                                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                                                        <h3 className="text-3xl font-bold mb-2">{image.title}</h3>
-                                                        <p className="text-lg opacity-90">{image.description}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
+                                            </Button>
+                                        </div>
                                     </div>
-
-                                    {/* Carousel Controls */}
-                                    <button
-                                        onClick={prevSlide}
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors z-20"
-                                        aria-label="Previous slide"
-                                    >
-                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                        </svg>
-                                    </button>
-
-                                    <button
-                                        onClick={nextSlide}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors z-20"
-                                        aria-label="Next slide"
-                                    >
-                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </button>
-
-                                    {/* Carousel Indicators */}
-                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                                        {carouselImages.map((_, index) => (
-                                            <button
-                                                key={index}
-                                                onClick={() => setCurrentSlide(index)}
-                                                className={`w-2 h-2 rounded-full transition-colors ${index === currentSlide ? 'bg-white' : 'bg-white/50'
-                                                    }`}
-                                                aria-label={`Go to slide ${index + 1}`}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-
+                                </form>
                             </AnimatedGroup>
                         </div>
-                        {lightboxOpen && (
-                            <div
-                                className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
-                                onClick={closeLightbox}
-                            >
-                                <div className="relative max-w-4xl max-h-full p-4">
-                                    <img
-                                        src={currentImage}
-                                        alt="New age music scene"
-                                        className="max-w-full max-h-full object-contain"
-                                        onClick={(e) => e.stopPropagation()}
-                                    />
+                    </div>
 
-                                    <button
-                                        className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 transition-all duration-200 hover:bg-opacity-70 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
-                                        onClick={closeLightbox}
-                                        aria-label="Close lightbox"
-                                    >
-                                        <svg className="w-6 h-6 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                </div>
+                    {/* Carousel Controls and Indicators - Bottom Position */}
+                    <div className="absolute bottom-8 left-0 right-0 z-10">
+                        <div className="flex flex-col items-center gap-4">
+                            {/* Carousel Controls */}
+                            <div className="flex justify-center gap-4">
+                                <button
+                                    onClick={prevSlide}
+                                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-white/30 transition-colors"
+                                    aria-label="Previous slide"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+
+                                <button
+                                    onClick={nextSlide}
+                                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-white/30 transition-colors"
+                                    aria-label="Next slide"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
                             </div>
-                        )}
+
+                            {/* Carousel Indicators */}
+                            <div className="flex justify-center gap-2">
+                                {carouselImages.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentSlide(index)}
+                                        className={`w-2 h-2 rounded-full transition-colors ${index === currentSlide ? 'bg-white' : 'bg-white/50'
+                                            }`}
+                                        aria-label={`Go to slide ${index + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </section>
-                {/*
-                 TODO: 
-                 active once sponsors are confirmed and logos are provided
-                 */}
-                {/* <LogoCloud /> */}
+
+                {/* Lightbox */}
+                {lightboxOpen && (
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+                        onClick={closeLightbox}
+                    >
+                        <div className="relative max-w-4xl max-h-full p-4">
+                            <img
+                                src={currentImage}
+                                alt="New age music scene"
+                                className="max-w-full max-h-full object-contain"
+                                onClick={(e) => e.stopPropagation()}
+                            />
+
+                            <button
+                                className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 transition-all duration-200 hover:bg-opacity-70 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                                onClick={closeLightbox}
+                                aria-label="Close lightbox"
+                            >
+                                <svg className="w-6 h-6 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                )}
             </main>
         </>
     )
