@@ -35,17 +35,17 @@ export default function Welcome() {
                         </p>
 
                         <div className="grid md:grid-cols-3 gap-6 mb-10 max-w-4xl mx-auto">
-                            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 flex flex-col items-center text-center">
                                 <Music className="w-6 h-6 text-blue-400 mb-3" />
                                 <h3 className="text-white font-semibold mb-2">Exclusive Content</h3>
                                 <p className="text-gray-400 text-sm">Behind-the-scenes footage and artist interviews</p>
                             </div>
-                            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 flex flex-col items-center text-center">
                                 <Users className="w-6 h-6 text-blue-400 mb-3" />
                                 <h3 className="text-white font-semibold mb-2">Community Access</h3>
                                 <p className="text-gray-400 text-sm">Join our growing music community</p>
                             </div>
-                            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 flex flex-col items-center text-center">
                                 <Bell className="w-6 h-6 text-blue-400 mb-3" />
                                 <h3 className="text-white font-semibold mb-2">First Alerts</h3>
                                 <p className="text-gray-400 text-sm">Be first to know about events and releases</p>
