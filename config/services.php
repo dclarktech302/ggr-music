@@ -34,5 +34,8 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'google' => [
+        'webhook_url' => env('GOOGLE_WEBHOOK_URL'),
+    ],
 
 ];
