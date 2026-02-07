@@ -12,6 +12,10 @@ Route::get('/subscribe', function () {
     return Inertia::render('subscribe');
 })->name('subscribe.page');
 
+Route::get('/shows', function () {
+    return Inertia::render('shows');
+})->name('shows.page');
+
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
 
 // Route::middleware(['auth', 'verified'])->group(function () {

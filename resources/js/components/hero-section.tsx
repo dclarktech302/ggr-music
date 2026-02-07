@@ -198,7 +198,7 @@ export default function HeroSection() {
                                                 type="submit"
                                                 aria-label="submit"
                                                 size="sm"
-                                                className="rounded-(--radius) bg-silver-600 hover:bg-silver-700 text-white">
+                                                className="rounded-(--radius) bg-blue-600 hover:bg-blue-700 text-white">
                                                 <span className="hidden md:block text-white">Get Started</span>
                                                 <SendHorizonal
                                                     className="relative mx-auto size-5 md:hidden text-white"

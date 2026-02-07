@@ -2,7 +2,6 @@ import HeroSection from '@/components/hero-section';
 import Features from '@/components/features-2';
 import FooterSection from '@/components/footer';
 import { Head, Link } from '@inertiajs/react';
-import ContentSection from '@/components/content-5';
 import { ArrowRight, Bell, Music, Users } from 'lucide-react';
 
 export default function Welcome() {
@@ -17,8 +16,10 @@ export default function Welcome() {
             </Head>
             <HeroSection />
 
+            <Features />
+
             {/* Subscribe CTA Section */}
-            <section className="py-20 bg-gray-900">
+            <section className="py-20 bg-black">
                 <div className="mx-auto max-w-6xl px-6">
                     <div className="text-center">
                         <div className="flex justify-center mb-6">
@@ -66,8 +67,6 @@ export default function Welcome() {
                 </div>
             </section>
 
-            <Features />
-            <ContentSection />
             <FooterSection />
         </>
     );
