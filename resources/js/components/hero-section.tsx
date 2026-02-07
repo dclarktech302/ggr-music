@@ -30,7 +30,7 @@ export default function HeroSection() {
     const [lightboxOpen, setLightboxOpen] = React.useState(false)
     const [currentImage, setCurrentImage] = React.useState('')
     const [currentSlide, setCurrentSlide] = React.useState(0)
-    const [isPaused, setIsPaused] = React.useState(false)
+    const [isPaused] = React.useState(false)
     const [email, setEmail] = React.useState('')
     const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
 
@@ -69,11 +69,6 @@ export default function HeroSection() {
         }
     }
 
-    const openLightbox = (imageSrc: string) => {
-        setCurrentImage(imageSrc)
-        setLightboxOpen(true)
-    }
-
     const closeLightbox = () => {
         setLightboxOpen(false)
         setCurrentImage('')
@@ -99,11 +94,6 @@ export default function HeroSection() {
         setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
         resetTimer()
     }, [carouselImages.length, resetTimer])
-
-    const goToSlide = React.useCallback((index: number) => {
-        setCurrentSlide(index)
-        resetTimer()
-    }, [resetTimer])
 
     React.useEffect(() => {
         if (!isPaused) {
