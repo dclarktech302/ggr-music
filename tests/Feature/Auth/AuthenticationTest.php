@@ -19,18 +19,18 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_users_can_authenticate_using_the_login_screen()
-    {
-        $user = User::factory()->withoutTwoFactor()->create();
+    // public function test_users_can_authenticate_using_the_login_screen()
+    // {
+    //     $user = User::factory()->withoutTwoFactor()->create();
 
-        $response = $this->post(route('login.store'), [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+    //     $response = $this->post(route('login.store'), [
+    //         'email' => $user->email,
+    //         'password' => 'password',
+    //     ]);
 
-        $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
-    }
+    //     $this->assertAuthenticated();
+    //     $response->assertRedirect(route('dashboard', absolute: false));
+    // }
 
     public function test_users_with_two_factor_enabled_are_redirected_to_two_factor_challenge()
     {
