@@ -1,8 +1,9 @@
 import HeroSection from '@/components/hero-section';
-import Features from '@/components/features-2';
+import FeaturesWithImages from '@/components/features-12';
 import FooterSection from '@/components/footer';
 import { Head, Link } from '@inertiajs/react';
 import { ArrowRight, Bell, Music, Users } from 'lucide-react';
+import CallToAction from '@/components/call-to-action';
 
 export default function Welcome() {
     return (
@@ -16,17 +17,14 @@ export default function Welcome() {
             </Head>
             <HeroSection />
 
-            <Features />
+            <FeaturesWithImages />
+
+            <CallToAction />
 
             {/* Subscribe CTA Section */}
             <section className="py-20 bg-black">
                 <div className="mx-auto max-w-6xl px-6">
                     <div className="text-center">
-                        <div className="flex justify-center mb-6">
-                            <div className="p-3 bg-gray-800 rounded-full">
-                                <Bell className="w-8 h-8 text-blue-400" />
-                            </div>
-                        </div>
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
                             Stay in the Loop
                         </h2>
@@ -34,7 +32,7 @@ export default function Welcome() {
                             Get exclusive alerts, behind-the-scenes content, and be the first to know about upcoming events and artist showcases.
                         </p>
 
-                        <div className="grid md:grid-cols-3 gap-6 mb-10 max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-6 mb-10 lg:max-w-4xl md:max-w-sm mx-auto">
                             <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 flex flex-col items-center text-center">
                                 <Music className="w-6 h-6 text-blue-400 mb-3" />
                                 <h3 className="text-white font-semibold mb-2">Exclusive Content</h3>
