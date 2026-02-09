@@ -3,10 +3,10 @@ export default function Features() {
         <section id="about" className="py-16 md:py-32">
             <div className="@container mx-auto max-w-5xl px-6">
                 <div className="text-center space-y-4">
-                    <h2 className="text-balance text-4xl font-semibold lg:text-5xl">Join Our Community</h2>
+                    <h2 className="text-balance text-4xl font-semibold lg:text-5xl">What We Offer</h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         We are the central hub for music artists, producers, and DJs who are passionate about their craft.
-                        Serving Maryland and Delaware with opportunities to showcase your talent.
+                        Serving the Eastern Shore with opportunities to showcase your talent.
                     </p>
                 </div>
             </div>
