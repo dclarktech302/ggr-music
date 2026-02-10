@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', function () {
@@ -17,5 +18,10 @@ Route::get('/shows', function () {
 })->name('shows.page');
 
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
+
+// Protected dashboard route - demonstrates Inertia.js data flow and authentication
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 require __DIR__.'/settings.php';
