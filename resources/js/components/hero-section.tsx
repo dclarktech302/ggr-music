@@ -5,6 +5,8 @@ import * as React from 'react'
 
 // Constants
 const CAROUSEL_INTERVAL_MS = 5000;
+// Note: CAROUSEL_TRANSITION_DURATION_MS is set to 1000ms, matching the Tailwind duration-1000 class
+// Tailwind requires hardcoded class names and cannot dynamically interpolate values
 const CAROUSEL_TRANSITION_DURATION_MS = 1000;
 
 const carouselImages = [
@@ -109,7 +111,7 @@ export default function HeroSection() {
                         {carouselImages.map((image, index) => (
                             <div
                                 key={index}
-                                className={`absolute inset-0 transition-opacity duration-${CAROUSEL_TRANSITION_DURATION_MS} ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                                className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
                                     }`}
                             >
                                 <img
