@@ -5,8 +5,10 @@ import * as React from 'react'
 
 // Constants
 const CAROUSEL_INTERVAL_MS = 5000;
-// Note: CAROUSEL_TRANSITION_DURATION_MS is set to 1000ms, matching the Tailwind duration-1000 class
-// Tailwind requires hardcoded class names and cannot dynamically interpolate values
+// CAROUSEL_TRANSITION_DURATION_MS documents the transition duration used in the Tailwind class below.
+// It's kept as a constant for documentation and potential future use in JavaScript animations.
+// The actual transition is controlled by the Tailwind class 'duration-1000' (line 112).
+// Tailwind requires hardcoded class names and cannot dynamically interpolate values.
 const CAROUSEL_TRANSITION_DURATION_MS = 1000;
 
 const carouselImages = [
