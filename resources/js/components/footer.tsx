@@ -8,10 +8,6 @@ const links = [
     {
         title: 'Shows',
         href: '/shows',
-    },
-    {
-        title: 'Subscribe',
-        href: '/subscribe',
     }
 ]
 

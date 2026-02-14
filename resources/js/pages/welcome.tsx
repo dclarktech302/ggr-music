@@ -19,7 +19,7 @@ export default function Welcome() {
 
             <FeaturesWithImages />
 
-            <CallToAction />
+            {/* <CallToAction /> */}
 
             {/* Subscribe CTA Section */}
             <section className="py-20 bg-black">
@@ -50,13 +50,15 @@ export default function Welcome() {
                             </div>
                         </div>
 
-                        <Link
-                            href="/subscribe"
+                        <a
+                            href="https://ggr.komi.io/form/b907b906-9048-4e77-95cc-212808858389"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-700 transition-all duration-300 hover:scale-105 shadow-xl"
                         >
                             Subscribe Now
                             <ArrowRight className="w-5 h-5" />
-                        </Link>
+                        </a>
 
                         <p className="text-gray-400 text-sm mt-4">
                             Join 500+ music lovers already subscribed
