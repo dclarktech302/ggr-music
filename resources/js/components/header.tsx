@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils'
 const menuItems = [
     { name: 'Home', href: '/' },
     { name: 'Shows', href: '/shows' },
-    { name: 'Subscribe', href: '/subscribe' },
 ]
 
 export const HeroHeader = () => {
