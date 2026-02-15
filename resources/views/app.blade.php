@@ -4,15 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {{-- Google tag (gtag.js) --}}
+        {{-- Google Analytics (gtag.js) --}}
         @if(config('services.google.gtm_id'))
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google.gtm_id') }}"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ e(config('services.google.gtm_id')) }}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', '{{ config('services.google.gtm_id') }}');
+            gtag('config', '{{ e(config('services.google.gtm_id')) }}');
         </script>
         @endif
 
