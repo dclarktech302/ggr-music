@@ -1,10 +1,36 @@
 import { TextEffect } from '@/components/ui/text-effect'
 import { AnimatedGroup } from '@/components/ui/animated-group'
 import { HeroHeader } from '@/components/header'
-import { Button } from '@/components/ui/button'
-import { Mail, SendHorizonal } from 'lucide-react'
 import * as React from 'react'
 
+// Constants
+const CAROUSEL_INTERVAL_MS = 5000;
+// CAROUSEL_TRANSITION_DURATION_MS documents the transition duration used in the Tailwind class below.
+// It's kept as a constant for documentation and potential future use in JavaScript animations.
+// The actual transition is controlled by the Tailwind class 'duration-1000' (line 112).
+// Tailwind requires hardcoded class names and cannot dynamically interpolate values.
+const CAROUSEL_TRANSITION_DURATION_MS = 1000;
+
+const carouselImages = [
+    {
+        src: "/images/3d-music-related-scene.jpg",
+        alt: "3D music visualization",
+        title: "Live Performances",
+        description: "Experience the energy of live music events"
+    },
+    {
+        src: "/images/3f56658e-7c79-42ae-bed1-38c3f6ff7b4c.jpg",
+        alt: "music festival",
+        title: "Artist Showcases",
+        description: "Discover talented local and regional artists"
+    },
+    {
+        src: "/images/back-view-audience-with-arms-raised-front-stage-music-concert.jpg",
+        alt: "music concert",
+        title: "Community Events",
+        description: "Join our growing music community"
+    }
+];
 
 const transitionVariants = {
     item: {
@@ -24,50 +50,14 @@ const transitionVariants = {
             },
         },
     },
-}
+};
 
 export default function HeroSection() {
     const [lightboxOpen, setLightboxOpen] = React.useState(false)
     const [currentImage, setCurrentImage] = React.useState('')
     const [currentSlide, setCurrentSlide] = React.useState(0)
     const [isPaused] = React.useState(false)
-    const [email, setEmail] = React.useState('')
     const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
-
-    const carouselImages = [
-        {
-            src: "/images/3d-music-related-scene.jpg",
-            alt: "3D music visualization",
-            title: "Live Performances",
-            description: "Experience the energy of live music events"
-        },
-        {
-            src: "/images/3f56658e-7c79-42ae-bed1-38c3f6ff7b4c.jpg",
-            alt: "music festival",
-            title: "Artist Showcases",
-            description: "Discover talented local and regional artists"
-        },
-        {
-            src: "/images/back-view-audience-with-arms-raised-front-stage-music-concert.jpg",
-            alt: "music concert",
-            title: "Community Events",
-            description: "Join our growing music community"
-        }
-    ]
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-        if (email && emailRegex.test(email)) {
-            // Redirect to subscribe page with email pre-filled
-            window.location.href = `/subscribe?email=${encodeURIComponent(email)}`
-        } else {
-            // Show error message for invalid email
-            alert('Please enter a valid email address')
-        }
-    }
 
     const closeLightbox = () => {
         setLightboxOpen(false)
@@ -81,32 +71,37 @@ export default function HeroSection() {
         if (!isPaused) {
             intervalRef.current = setInterval(() => {
                 setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
-            }, 5000)
+            }, CAROUSEL_INTERVAL_MS)
         }
-    }, [isPaused, carouselImages.length])
+    }, [isPaused])
 
     const nextSlide = React.useCallback(() => {
         setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
         resetTimer()
-    }, [carouselImages.length, resetTimer])
+    }, [resetTimer])
 
     const prevSlide = React.useCallback(() => {
         setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
         resetTimer()
-    }, [carouselImages.length, resetTimer])
+    }, [resetTimer])
+
+    const goToSlide = React.useCallback((index: number) => {
+        setCurrentSlide(index)
+        resetTimer()
+    }, [resetTimer])
 
     React.useEffect(() => {
         if (!isPaused) {
             intervalRef.current = setInterval(() => {
                 setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
-            }, 5000)
+            }, CAROUSEL_INTERVAL_MS)
         }
         return () => {
             if (intervalRef.current) {
                 clearInterval(intervalRef.current)
             }
         }
-    }, [isPaused, carouselImages.length])
+    }, [isPaused])
     return (
         <>
             <HeroHeader />
@@ -125,7 +120,7 @@ export default function HeroSection() {
                                     src={image.src}
                                     alt={image.alt}
                                     className="w-full h-full object-cover"
-                                    loading="lazy"
+                                    loading={index === 0 ? 'eager' : 'lazy'}
                                 />
                                 {/* Dark overlay for text readability */}
                                 <div className="absolute inset-0 bg-black/50" />
@@ -233,10 +228,11 @@ export default function HeroSection() {
                                 {carouselImages.map((_, index) => (
                                     <button
                                         key={index}
-                                        onClick={() => setCurrentSlide(index)}
+                                        onClick={() => goToSlide(index)}
                                         className={`w-2 h-2 rounded-full transition-colors ${index === currentSlide ? 'bg-white' : 'bg-white/50'
                                             }`}
                                         aria-label={`Go to slide ${index + 1}`}
+                                        aria-current={index === currentSlide ? 'true' : 'false'}
                                     />
                                 ))}
                             </div>
