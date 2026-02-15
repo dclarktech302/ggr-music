@@ -5,14 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {{-- Google tag (gtag.js) --}}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FR141WDP1"></script>
+        @if(config('services.google.gtm_id'))
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google.gtm_id') }}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-2FR141WDP1');
+            gtag('config', '{{ config('services.google.gtm_id') }}');
         </script>
+        @endif
 
         {{-- Always apply dark mode immediately --}}
         <script>
