@@ -36,6 +36,7 @@ return [
     ],
     'google' => [
         'webhook_url' => env('GOOGLE_WEBHOOK_URL'),
+        'gtm_id' => env('GOOGLE_GTM_ID'),
     ],
 
 ];
